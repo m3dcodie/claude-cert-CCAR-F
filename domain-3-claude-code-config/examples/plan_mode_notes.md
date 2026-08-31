@@ -31,3 +31,20 @@ that redirecting after the fact is expensive, (c) requirements are genuinely
 underspecified and need exploration before a plan is even possible. None of those are
 about *size* alone — a large but fully mechanical change (e.g., a scripted rename
 across 200 files) doesn't need it either.
+
+## The Explore subagent inside plan mode
+
+A plan-mode investigation into "migrate from requests to httpx" might need to grep and
+read dozens of files to find every call site and understand each one's retry/session
+behavior. That exploration is verbose — pages of file contents and search hits — and
+none of it needs to sit in the main conversation once it's done being useful. The
+**Explore** subagent runs that discovery phase in its own isolated context and returns
+just a summary (e.g., "40 call sites across 12 files; 6 rely on requests-specific
+retry behavior and need more than a mechanical swap"). This is what keeps a
+multi-phase investigation from exhausting the main context window before a plan is
+even written — see
+[`04_plan_mode_and_explore.py`](./04_plan_mode_and_explore.py) for a simulation of
+the isolation effect, and Domain 5 Task Statement 5.4's
+[`04_scratchpad_and_delegation.py`](../../domain-5-context-reliability/examples/04_scratchpad_and_delegation.py)
+for the same "isolate verbose exploration, keep only the summary" pattern applied to
+codebase exploration generally.

@@ -1,8 +1,15 @@
 # Project conventions (example team CLAUDE.md)
 
+**Level: project** (`.claude/CLAUDE.md` or root `CLAUDE.md`, committed to version
+control). This is the level a rule needs to be at for the whole team to get it — a
+teammate not receiving an instruction here is usually a sign it was accidentally
+written into their personal `~/.claude/CLAUDE.md` instead (see
+[`hierarchy_and_imports.md`](./hierarchy_and_imports.md)).
+
 This file applies to every session opened in this repo — it's the "everyone gets the
 same baseline" layer. Keep it short and concrete; put anything path-specific in
-`.claude/rules/` instead so it only loads when relevant.
+`.claude/rules/` instead so it only loads when relevant, and pull in shared standards
+with `@import` rather than duplicating them per package.
 
 ## Testing
 

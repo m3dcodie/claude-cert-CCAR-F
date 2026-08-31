@@ -3,11 +3,19 @@ name: code-review
 description: Review a diff for correctness bugs and reuse/simplification opportunities. Runs isolated so exploration noise doesn't pollute the main conversation.
 context: fork
 allowed-tools: Read, Grep, Glob
+argument-hint: <file-or-pr-scope>
 ---
 
 # Code review skill
 
 Run this when asked to review a diff, a PR, or "changes I just made."
+
+`argument-hint: <file-or-pr-scope>` — if invoked bare (no target given), this prompts
+the developer for what to review instead of the skill guessing at a scope. Compare
+with `.claude/commands/review-pr.md`, which is the slash-command form of a related
+workflow: skills and commands overlap in shape, but a skill is the right choice when
+the work benefits from running in an isolated forked context (see below), while a
+plain command is enough for something that doesn't need that isolation.
 
 `context: fork` — this skill runs in a forked context. It can read as many files as it
 needs to build understanding without every intermediate file read cluttering the

@@ -27,11 +27,14 @@ checklist below.
    confirm the API rule's guidance shows up; edit an unrelated file and confirm it
    doesn't.
 
-3. **Project-scoped skill** with `context: fork` and `allowed-tools`.
-   Copy [`../../domain-3-claude-code-config/examples/.claude/skills/code-review/SKILL.md`](../../domain-3-claude-code-config/examples/.claude/skills/code-review/SKILL.md).
-   Verify: invoke it on a diff and confirm its exploration doesn't fill up the main
-   conversation's context (forked), and that it never attempts a `Write`/`Edit`/`Bash`
-   call (tool-restricted to read-only).
+3. **Project-scoped skill and slash command**, with `context: fork`, `allowed-tools`,
+   and `argument-hint`.
+   Copy [`../../domain-3-claude-code-config/examples/.claude/skills/code-review/SKILL.md`](../../domain-3-claude-code-config/examples/.claude/skills/code-review/SKILL.md)
+   and [`.../commands/review-pr.md`](../../domain-3-claude-code-config/examples/.claude/commands/review-pr.md).
+   Verify: invoking the skill on a diff doesn't fill up the main conversation's context
+   (forked) and never attempts a `Write`/`Edit`/`Bash` call (tool-restricted to
+   read-only); invoking `/review-pr` with no PR number prompts you for one instead of
+   guessing (`argument-hint`).
 
 4. **MCP server config**, project- and user-scoped.
    Copy [`../../domain-2-tool-mcp/examples/04_mcp_server_config/.mcp.json`](../../domain-2-tool-mcp/examples/04_mcp_server_config/.mcp.json)
@@ -47,6 +50,14 @@ checklist below.
    new feature with multiple valid approaches. Observe where plan mode actually
    changed the outcome (caught a bad approach before code was touched) versus where
    it was just overhead.
+
+6. **CI integration**, non-interactive with structured output.
+   Adapt [`../../domain-3-claude-code-config/examples/ci/review-workflow.yml`](../../domain-3-claude-code-config/examples/ci/review-workflow.yml)
+   for your CI provider. Verify: the job runs `-p` (never hangs waiting for input),
+   and produces `--output-format json` output matching the `--json-schema` you gave
+   it — run [`06_ci_cd_integration.py`](../../domain-3-claude-code-config/examples/06_ci_cd_integration.py)
+   first to see the dedup-across-commits and schema-validation logic your posting
+   script needs, before wiring it into a real pipeline.
 
 ## What "done" looks like
 
