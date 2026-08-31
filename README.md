@@ -55,7 +55,18 @@ order for review, weakest first:
 5. **Domain 3 — Claude Code Configuration** (83%) — spot-check only.
 
 Then work through `exercises/` end to end — they deliberately cross domain boundaries
-the way exam scenario questions do.
+the way exam scenario questions do:
+
+| Exercise | Wires together | Folder |
+|---|---|---|
+| 1. Multi-Tool Agent with Escalation Logic | D1, D2, D5 | [`exercises/01_multi_tool_agent_escalation/`](./exercises/01_multi_tool_agent_escalation/) |
+| 2. Team Development Workflow Config | D3, D2 | [`exercises/02_team_workflow_config/`](./exercises/02_team_workflow_config/) |
+| 3. Structured Data Extraction Pipeline | D4, D5 | [`exercises/03_extraction_pipeline/`](./exercises/03_extraction_pipeline/) |
+| 4. Multi-Agent Research Pipeline | D1, D2, D5 | [`exercises/04_research_pipeline/`](./exercises/04_research_pipeline/) |
+
+Exercises 1, 3, and 4 are runnable Python (`python3 <folder>/agent.py` or `pipeline.py`).
+Exercise 2 is a config/CLI walkthrough — its README points at the real config files to
+copy into a test project and a verification checklist to run in Claude Code itself.
 
 ## Sharing with others
 
