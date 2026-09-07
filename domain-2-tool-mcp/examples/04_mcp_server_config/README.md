@@ -63,3 +63,34 @@ Illustrative resource shape from an issue-tracker MCP server:
 An agent that reads this resource first knows immediately whether issue `#4021`
 exists and is labeled `billing` — no `search_issues("billing")` call needed just to
 find out.
+
+## Beyond the outline: how this actually gets configured
+
+The exam outline collapses scoping to project vs. user, but Claude Code has **three**
+scopes, and in practice you rarely hand-edit JSON — the CLI writes it for you:
+
+```bash
+claude mcp add --transport http github https://api.githubcopilot.com/mcp/ \
+  --header "Authorization: Bearer $GITHUB_TOKEN" --scope project   # writes .mcp.json
+claude mcp add --transport stdio scratch-db --scope local -- python server.py  # ~/.claude.json, this project only
+claude mcp add --transport http hubspot https://mcp.hubspot.com/anthropic --scope user  # ~/.claude.json, every project
+```
+
+| Scope | File | Shared with team | Loads in |
+|---|---|---|---|
+| `local` (default) | `~/.claude.json` | No | current project only |
+| `project` | `.mcp.json` | Yes (git) | current project only |
+| `user` | `~/.claude.json` | No | every project |
+
+Both `local` and `user` live in the same `~/.claude.json` file — the difference is
+scope, not location. Manage what's connected with `/mcp` (interactive panel) or
+`claude mcp list` / `get` / `remove` / `login` / `logout` from the shell.
+
+`${VAR}` expansion also supports a fallback: `${API_BASE_URL:-https://api.example.com}`
+— useful for a project server where most of the team can rely on a sane default and
+only a few people need to override it locally.
+
+One more practical gotcha: MCP tool output is capped (`MAX_MCP_OUTPUT_TOKENS`, default
+25,000 tokens, warning at 10,000) — a resource or tool that can return a lot of data
+(e.g. `get_schema` on a big DB) should paginate or filter server-side rather than
+relying on the client to truncate for it.

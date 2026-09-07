@@ -19,6 +19,12 @@ system prompts for keyword bias that could override good tool descriptions.
 
 **Example:** [`examples/01_tool_description_disambiguation.py`](./examples/01_tool_description_disambiguation.py)
 
+**Beyond the outline:** the API also has `strict: true` on a custom tool definition,
+which guarantees Claude's `tool_use` input matches your JSON schema exactly (no missing
+required fields, no type mismatches) — this closes the gap a good description alone
+can't: a well-disambiguated tool can still get malformed input. Good descriptions solve
+*which* tool gets picked; `strict: true` solves *whether the call to it is well-formed*.
+
 ## Task Statement 2.2 — Implement structured error responses for MCP tools
 
 **Knowledge:** MCP tools signal failure with the `isError` flag. Errors fall into
@@ -60,6 +66,19 @@ when a step must run before others (e.g. `extract_metadata` before enrichment); 
 `tool_choice: "any"` to guarantee a tool call instead of conversational text.
 
 **Example:** [`examples/03_tool_distribution_and_choice.py`](./examples/03_tool_distribution_and_choice.py)
+
+**Beyond the outline:** two more real levers worth knowing alongside the three
+`tool_choice` modes:
+- `tool_choice: {"type": "auto", "disable_parallel_tool_use": true}` caps a turn to at
+  most one tool call — useful when you need to inspect/act on each result before the
+  next call rather than getting several `tool_use` blocks at once.
+- The **tool search tool** (`tool_search_tool_*`) is Anthropic's answer to the "18
+  tools degrades selection" problem at real scale: instead of hand-scoping every
+  agent's tool list, tools are registered but not loaded into context up front, and
+  Claude searches/loads the relevant ones on demand. Manual scoping (this task
+  statement) and tool search solve the same problem at different scales — scoping for
+  a handful of agents each with a handful of tools, tool search when one agent
+  legitimately needs access to hundreds.
 
 ## Task Statement 2.4 — Integrate MCP servers into Claude Code and agent workflows
 
