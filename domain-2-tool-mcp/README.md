@@ -17,7 +17,9 @@ overly generic tool into purpose-specific ones with defined contracts (`analyze_
 → `extract_data_points` / `summarize_content` / `verify_claim_against_source`); review
 system prompts for keyword bias that could override good tool descriptions.
 
-**Example:** [`examples/01_tool_description_disambiguation.py`](./examples/01_tool_description_disambiguation.py)
+**Example:** [`examples/01_tool_description_disambiguation.py`](./examples/01_tool_description_disambiguation.py),
+[`examples/01_a_input_output_contracts.py`](./examples/01_a_input_output_contracts.py),
+[`examples/01_b_system_prompt_keyword_override.py`](./examples/01_b_system_prompt_keyword_override.py)
 
 **Beyond the outline:** the API also has `strict: true` on a custom tool definition,
 which guarantees Claude's `tool_use` input matches your JSON schema exactly (no missing

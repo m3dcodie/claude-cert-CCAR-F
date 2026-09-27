@@ -96,6 +96,11 @@ def demo_retry_cannot_fix_missing_data():
 
 
 def demo_detected_pattern_tracking():
+    """Standalone illustration of the module docstring's last point: this isn't
+    invoice extraction like the other two demos — it's a code-review-findings
+    scenario showing why each finding should carry a stable `detected_pattern`
+    id (not just free-text `issue` text), so dismissals can be aggregated by
+    pattern to spot which rules are noisy, instead of re-litigating retries."""
     print("\n--- 4.4: detected_pattern field for aggregate false-positive analysis ---")
     findings = [
         {"issue": "bare except", "detected_pattern": "except_no_log", "dismissed_by_dev": True},
