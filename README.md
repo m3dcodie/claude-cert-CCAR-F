@@ -1,5 +1,10 @@
 # Claude Certified Architect – Foundations (CCAR-F) — Study Repo
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
+[![GitHub issues](https://img.shields.io/github/issues/m3dcodie/claude-cert-CCAR-F)](https://github.com/m3dcodie/claude-cert-CCAR-F/issues)
+[![GitHub stars](https://img.shields.io/github/stars/m3dcodie/claude-cert-CCAR-F)](https://github.com/m3dcodie/claude-cert-CCAR-F/stargazers)
+
 Theory + runnable practical examples for the [Claude Certified Architect – Foundations
 exam guide](./outline.md) (v1.0, effective July 2026). Built to (1) prep for the exam
 retake and (2) hand working examples to teammates as a reference.
@@ -63,6 +68,29 @@ Exercises 1, 3, and 4 are runnable Python (`python3 <folder>/agent.py` or `pipel
 Exercise 2 is a config/CLI walkthrough — its README points at the real config files to
 copy into a test project and a verification checklist to run in Claude Code itself.
 
-## Sharing with others
+## Tracking progress (Claude Code users)
 
-This is a local git repo. Push it to GitHub/GitLab whenever you're ready to share it.
+If you're working through this in Claude Code, the repo ships a project skill,
+`study-guide` (`.claude/skills/study-guide/`), that's picked up automatically. It:
+
+- tracks which READMEs/examples/exercises you've done and your quiz scores in a
+  local `study-progress.md` (gitignored, never shared or committed);
+- tells you the one concrete next step (`/study-guide next`);
+- runs interactive quiz drills pulled from `quiz_bank.md`, one question at a time
+  (`/study-guide quiz 2` or `/study-guide quiz 1.5`), re-surfacing anything you
+  got wrong until you clear it.
+
+It only navigates and quizzes existing content — it won't write you new examples
+or questions, since that doesn't build retention as effectively as doing the work
+yourself. No Claude Code? The plain clone-and-read path above works the same.
+
+## Contributing & feedback
+
+This is open source (MIT-licensed, see [`LICENSE`](./LICENSE)) and feedback is
+welcome — found a wrong answer key, a broken example, a thin task statement, or
+just have a suggestion? [Open an issue](https://github.com/m3dcodie/claude-cert-CCAR-F/issues).
+PRs for fixes, new examples, or new quiz questions are welcome too — see
+[`CONTRIBUTING.md`](./CONTRIBUTING.md) for the conventions this repo follows
+(docstring shape, filename numbering, how examples/README/quiz_bank cross-link)
+before you start.
+
