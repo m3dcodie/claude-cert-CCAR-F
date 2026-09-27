@@ -43,16 +43,11 @@ the one intentional seam in every example.
 | 4 | Prompt Engineering & Structured Output | 20% | [`domain-4-prompt-engineering/`](./domain-4-prompt-engineering/) |
 | 5 | Context Management & Reliability | 15% | [`domain-5-context-reliability/`](./domain-5-context-reliability/) |
 
-## Study plan (weighted by the mock exam attempt)
+## Study plan
 
-See [`mock_exam_notes.md`](./mock_exam_notes.md) for the full gap analysis. Priority
-order for review, weakest first:
-
-1. **Domain 2 — Tool Design & MCP** (40% on the mock) — start here.
-2. **Domain 4 — Prompt Engineering & Structured Output** (50%).
-3. **Domain 5 — Context Management & Reliability** (60%).
-4. **Domain 1 — Agentic Architecture** (83%) — spot-check only.
-5. **Domain 3 — Claude Code Configuration** (83%) — spot-check only.
+Work through each `domain-*/README.md` in weight order (D1 → D3/D4 → D2 → D5), running
+the paired examples as you go, then self-test with [`quiz_bank.md`](./quiz_bank.md) —
+77 practice questions organized by domain and task statement, each with an answer key.
 
 Then work through `exercises/` end to end — they deliberately cross domain boundaries
 the way exam scenario questions do:
@@ -70,6 +65,4 @@ copy into a test project and a verification checklist to run in Claude Code itse
 
 ## Sharing with others
 
-This is a local git repo (no remote configured). Push it to a private GitHub/GitLab repo
-whenever you're ready to actually share it with teammates — nothing here has been
-pushed anywhere yet.
+This is a local git repo. Push it to GitHub/GitLab whenever you're ready to share it.
