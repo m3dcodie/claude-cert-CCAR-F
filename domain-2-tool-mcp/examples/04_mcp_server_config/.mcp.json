@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+    "internal-issue-tracker": {
+      "command": "node",
+      "args": ["./mcp-servers/issue-tracker/dist/index.js"],
+      "env": {
+        "ISSUE_TRACKER_API_KEY": "${ISSUE_TRACKER_API_KEY}",
+        "ISSUE_TRACKER_BASE_URL": "https://issues.internal.example.com"
+      }
+    }
+  }
+}

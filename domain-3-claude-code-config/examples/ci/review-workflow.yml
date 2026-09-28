@@ -1,0 +1,41 @@
+# Task Statement 3.6 — Claude Code in CI (GitHub Actions example)
+#
+# -p / --print          : non-interactive, required in a pipeline (an interactive
+#                          prompt for input would just hang the job forever).
+# --output-format json  : machine-parseable output instead of free text.
+# --json-schema          : enforces the exact structured shape CI code expects,
+#                          so posting findings as inline PR comments is a simple
+#                          parse, not a free-text scrape.
+#
+# CLAUDE.md at the repo root still applies here -- it's what gives this
+# non-interactive invocation the same testing/review-criteria context an
+# interactive session would have (see ../CLAUDE.md).
+
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Claude Code review (non-interactive, structured output)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          claude -p "Review the diff in this PR against CLAUDE.md's standards. \
+            Report only NEW or still-unaddressed issues -- prior_findings.json \
+            (if present) lists what was already reported on an earlier commit; \
+            do not repeat those unless they're still present in the current diff." \
+            --output-format json \
+            --json-schema .claude/schemas/review-findings.schema.json \
+            > review-findings.json
+
+      - name: Post findings as inline PR comments
+        run: python3 scripts/post_review_comments.py review-findings.json
